@@ -1,14 +1,18 @@
 const express = require('express');
-const path = require('path');
 const app = express();
+const path = require('path');
 
-// Serve static files....
-app.use(express.static(__dirname + '/dist/CRM_UB'));
+app.use(express.static(__dirname + '/dist/CRM-UB'));
+app.listen(process.env.PORT || 3000);
 
-// Send all requests to index.html
-app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname + '/dist/CRM_UB/index.html'));
-});
+//PATH LOCATION STARTEGY
 
-// default Heroku PORT
-app.listen(process.env.PORT || 8080);
+app.get('/*', function(req,res){
+  const fullPath = path.join(__dirname + '/dist/CRM-UB/index.html');
+  console.log(" Fetching from.." + fullPath);
+    res.sendFile(fullPath);
+})
+
+console.log('Server started running..');
+
+//Changed to run on Heroku
